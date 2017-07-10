@@ -23,6 +23,11 @@ public class CordovaPluginPackage implements ReactPackage {
         activity = reactActivity;
     }
 
+    public void set_MainActivity(Activity reactActivity)
+    {
+        activity = reactActivity;
+    }
+
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         cordovaPluginAdapter = new CordovaPluginAdapter(reactContext, activity, savedInstanceState);

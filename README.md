@@ -67,13 +67,13 @@ dependencies {
 ...
 public class MainActivity extends ReactActivity {
      ...
-     @Override
-     protected List<ReactPackage> getPackages() {
-         return Arrays.<ReactPackage>asList(
-                 new MainReactPackage(),
-+                cordovaPluginPackage = new CordovaPluginPackage(this)
-         );
-     }
+
++    public MainActivity()
++    {
++        super();
++        MainApplication.cordovaPluginPackage.set_MainActivity(this);
++    }
+
 +    private CordovaPluginPackage cordovaPluginPackage;
 +    @Override
 +    protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +87,29 @@ public class MainActivity extends ReactActivity {
 +    }
 }
 
+```
+
+4. In __android/app/src/main/java/com/appname/MainApplication.java__:
+```diff
+...
++import io.cordova.reactnative.CordovaPluginPackage;
+...
+public class MainApplication extends Application implements ReactApplication {
++    public static CordovaPluginPackage cordovaPluginPackage;
++
++    public MainApplication()
++    {
++        super();
++        cordovaPluginPackage = new CordovaPluginPackage(null);
++    }
+...
+    @Override
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+          new MainReactPackage(), 
++          cordovaPluginPackage
+      );
+    }
 ```
 
 ### Step 3 - Adding Cordova Plugin to ReactNative project
